@@ -1,0 +1,6 @@
+{
+  "name": "Tocala Aca",
+  "description": "Web App para gestionar convocatorias, cupos, listas de espera y ranking de confiabilidad de grupos de fútbol amateur.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

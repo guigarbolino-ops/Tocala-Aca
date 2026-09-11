@@ -1,0 +1,88 @@
+{
+  "entities": {
+    "users": {
+      "title": "User",
+      "description": "Registered players and admins with their scores and tiers",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Unique user ID" },
+        "name": { "type": "string", "description": "Player full name" },
+        "email": { "type": "string", "description": "Player email" },
+        "photoURL": { "type": "string", "description": "Avatar photo URL" },
+        "role": { "type": "string", "enum": ["admin", "player"], "description": "System role" },
+        "score": { "type": "number", "description": "Player reliability score, default 100" },
+        "tier": { "type": "string", "enum": ["Prioridad 1", "Prioridad 2", "Prioridad 3"], "description": "Priority tier based on score" },
+        "stats": {
+          "type": "object",
+          "properties": {
+            "played": { "type": "number" },
+            "late": { "type": "number" },
+            "noShows": { "type": "number" },
+            "debts": { "type": "number" },
+            "onTime": { "type": "number" },
+            "paidOnTime": { "type": "number" }
+          }
+        },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["uid", "name", "email", "role", "score", "tier"]
+    },
+    "matches": {
+      "title": "Match",
+      "description": "Scheduled football matches",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "dateTime": { "type": "string" },
+        "location": { "type": "string" },
+        "capacity": { "type": "number", "enum": [10, 12, 14, 18] },
+        "costPerPlayer": { "type": "number" },
+        "status": { "type": "string", "enum": ["phase_1_priority", "phase_2_open", "closed", "completed", "cancelled"] },
+        "createdAt": { "type": "string" },
+        "title": { "type": "string" },
+        "notes": { "type": "string" }
+      },
+      "required": ["id", "dateTime", "location", "capacity", "costPerPlayer", "status"]
+    },
+    "registrations": {
+      "title": "Registration",
+      "description": "Player registration for a specific match",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "matchId": { "type": "string" },
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "userEmail": { "type": "string" },
+        "userPhoto": { "type": "string" },
+        "userScore": { "type": "number" },
+        "userTier": { "type": "string" },
+        "registeredAt": { "type": "string" },
+        "status": { "type": "string", "enum": ["starter", "substitute", "cancelled"] },
+        "cancellationTime": { "type": "string" },
+        "paid": { "type": "boolean" }
+      },
+      "required": ["id", "matchId", "userId", "userName", "userScore", "status", "registeredAt"]
+    },
+    "evaluations": {
+      "title": "Evaluation",
+      "description": "Post-match assessment and score calculation for a player",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "matchId": { "type": "string" },
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "attended": { "type": "boolean" },
+        "onTime": { "type": "boolean" },
+        "paid": { "type": "boolean" },
+        "penaltyType": { "type": "string", "enum": ["none", "late", "late_cancellation", "no_show", "debt"] },
+        "deltaScore": { "type": "number" },
+        "evaluatedAt": { "type": "string" },
+        "evaluatedBy": { "type": "string" }
+      },
+      "required": ["id", "matchId", "userId", "attended", "onTime", "paid", "deltaScore"]
+    }
+  }
+}

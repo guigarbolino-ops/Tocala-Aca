@@ -1,0 +1,45 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && (
+        request.auth.token.email == 'Gui.Garbolino@gmail.com' ||
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin'
+      );
+    }
+
+    // Users collection (Leaderboard & Profiles)
+    match /users/{userId} {
+      allow read: if true;
+      allow create, update, delete: if true;
+    }
+
+    // Matches collection
+    match /matches/{matchId} {
+      allow read: if true;
+      allow create, update, delete: if true;
+    }
+
+    // Registrations collection (Player registrations & Waitlist)
+    match /registrations/{registrationId} {
+      allow read: if true;
+      allow create, update, delete: if true;
+    }
+
+    // Evaluations collection (Post-match settlements)
+    match /evaluations/{evalId} {
+      allow read: if true;
+      allow create, update, delete: if true;
+    }
+  }
+}
+

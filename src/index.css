@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    @apply antialiased bg-[#F6F8F6] text-[#222B25] min-h-screen selection:bg-[#52795D]/20 selection:text-[#222B25];
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  body.dark-theme {
+    @apply bg-[#151C17] text-[#E4EAE4] selection:bg-[#52795D] selection:text-white;
+  }
+}
+
+/* Custom smooth scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #EEF2EE;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CCD6CE;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #AFC0B3;
+}
